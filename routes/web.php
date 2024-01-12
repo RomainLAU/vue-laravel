@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Foundation\Application;
@@ -28,6 +29,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::resource('/playlists', PlaylistController::class)->except(['edit', 'update']);
+
+    Route::resource('/api-keys', ApiKeyController::class)->except(['edit', 'create', 'update', 'show']);
 
     Route::middleware(['admin'])->group(function() {
         Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
